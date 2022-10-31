@@ -9,11 +9,12 @@ const LeftSideNav = () => {
         .then(res => res.json())
         .then(data => setCategories(data))
     },[])
+
     return (
         <div>
             <h4>News Categories</h4>
             {
-                categories.map(category => <div> <Link to={`/category/${category.id}`}>{category.name}</Link> </div>)
+                categories.map(category => <div key={category.id}> <Link to={`/category/${category.id}`}>{category.name}</Link> </div>)
             }
         </div>
     );

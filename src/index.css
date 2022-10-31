@@ -1,3 +1,15 @@
 a {
   text-decoration: none;
 }
+
+button svg {
+  margin-top: -3px;
+}
+
+#login-button-group {
+  display: block;
+}
+
+.carousel-inner {
+  border-radius: 10px;
+}
