@@ -30,7 +30,7 @@ const RightSideNav = () => {
           <ListGroup.Item className="mb-2"><FaInstagram></FaInstagram> Instagram</ListGroup.Item>
         </ListGroup>
       </div>
-      <div className="mt-3">
+      <div className="mt-3 mb-3">
         <BrandCarousel></BrandCarousel>
       </div>
     </div>

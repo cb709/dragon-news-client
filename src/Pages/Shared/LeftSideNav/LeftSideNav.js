@@ -12,10 +12,11 @@ const LeftSideNav = () => {
 
     return (
         <div>
-            <h4>News Categories</h4>
+            <div className="categories-list border rounded p-3">
             {
                 categories.map(category => <div key={category.id}> <Link to={`/category/${category.id}`}>{category.name}</Link> </div>)
             }
+            </div>
         </div>
     );
 };
