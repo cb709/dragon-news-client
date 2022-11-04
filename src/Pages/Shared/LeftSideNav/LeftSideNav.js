@@ -14,7 +14,7 @@ const LeftSideNav = () => {
         <div>
             <div className="categories-list border rounded p-3">
             {
-                categories.map(category => <div key={category.id}> <Link to={`/category/${category.id}`}>{category.name}</Link> </div>)
+                categories.map(category => <div key={category.id}> <Link className="nav-link" to={`/category/${category.id}`}>{category.name}</Link> </div>)
             }
             </div>
         </div>

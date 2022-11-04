@@ -1,12 +1,13 @@
 import React from "react";
 import { useContext } from "react";
-import { Button, Image, NavDropdown } from "react-bootstrap";
+import { Image, NavDropdown } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import logo from "../../../logo.png";
+import { FaUser } from "react-icons/fa";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -39,18 +40,28 @@ const Header = () => {
           <Nav>
             {!user ? (
               <Nav>
-                <Link className="nav-link" to="/login">Login</Link>
-                <Link className="nav-link" to="/register">Register</Link>
+                <Link className="nav-link" to="/login">
+                  Login
+                </Link>
+                <Link className="nav-link" to="/register">
+                  Register
+                </Link>
               </Nav>
             ) : (
               <div className="d-flex align-items-center">
-                <Image
-                  roundedCircle
-                  src={user?.photoURL}
-                  style={{ height: "30px" }}
-                ></Image>
+                {!user.photoURL ? (
+                  <div className="nav-link">
+                    <FaUser></FaUser>
+                  </div>
+                ) : (
+                  <Image
+                    roundedCircle
+                    src={user?.photoURL}
+                    style={{ height: "30px" }}
+                  ></Image>
+                )}
                 <NavDropdown
-                  title={user?.displayName}
+                  title={user.displayName ? user.displayName : "No Name"}
                   id="collasible-nav-dropdown"
                 >
                   <NavDropdown.Item onClick={handleLogOut}>

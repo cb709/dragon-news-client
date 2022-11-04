@@ -12,7 +12,7 @@ const Category = () => {
     }
     return (
         <div>
-            <h3 className='text-center border rounded p-2 mb-3'>{news.length !== 0 ? news.length : 'No'} News Found</h3>
+            <h5 className='text-center border rounded p-2 mb-3'>{news.length !== 0 ? news.length : 'No'} News Found</h5>
             {
                 news.length !== 0 ? news.slice(0, newsCount).map(n => <NewsCard key={n._id} news={n}></NewsCard>) : ''
             }
