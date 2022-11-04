@@ -11,7 +11,7 @@ const Category = () => {
         setNewsCount(newsCount + 3);
     }
     return (
-        <div className='mb-5'>
+        <div>
             <h3 className='text-center border rounded p-2 mb-3'>{news.length !== 0 ? news.length : 'No'} News Found</h3>
             {
                 news.length !== 0 ? news.slice(0, newsCount).map(n => <NewsCard key={n._id} news={n}></NewsCard>) : ''

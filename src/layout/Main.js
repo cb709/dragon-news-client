@@ -10,7 +10,7 @@ const Main = () => {
     return (
         <div>
             <Header></Header>
-            <Container className='main-body'>
+            <Container className='main-body mt-4 mb-5'>
                 <Row>
                     <Col lg={2}>
                         <LeftSideNav></LeftSideNav>

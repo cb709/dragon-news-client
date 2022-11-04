@@ -1,0 +1,6 @@
+1. Create a context component like "AuthProvider"
+2. create context with a name like  "AuthContext" and export it for further uses
+3. make some dummy data to pass into provider value
+4. set Auth Provider and set the value
+5. set children as props to AuthContext 
+6. set context and children into index.js
