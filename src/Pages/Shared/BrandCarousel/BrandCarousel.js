@@ -6,7 +6,7 @@ function BrandCarousel() {
   const [news, setNews] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/category/01")
+    fetch("https://dragon-news-server-cb709.vercel.app/category/01")
       .then((res) => res.json())
       .then((data) => {
         setNews(data);
