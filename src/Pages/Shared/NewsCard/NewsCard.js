@@ -14,7 +14,6 @@ const NewsCard = ({ news }) => {
     image_url,
     title,
   } = news;
-  console.log(author)
   return (
     <Card className="mb-4">
       <Card.Header className="d-flex justify-content-between align-items-center">

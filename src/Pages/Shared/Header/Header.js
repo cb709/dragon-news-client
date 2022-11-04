@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Link className="me-4">
+        <Link className="me-4" to={'/'}>
           {" "}
           <Image src={logo} style={{ width: "189px" }}></Image>{" "}
         </Link>
@@ -60,7 +60,7 @@ const Header = () => {
                   <Image
                     roundedCircle
                     src={user?.photoURL}
-                    style={{ height: "30px" }}
+                    style={{ height: "30px", width:"30px", objectFit:"cover", border:"1px solid white", padding:"2px"}}
                   ></Image>
                 )}
                 <NavDropdown

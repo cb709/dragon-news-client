@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Login = () => {
-  const { logIn } = useContext(AuthContext);
+  const { logIn,setLoading } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || "/";
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -17,14 +22,24 @@ const Login = () => {
     logIn(email, password)
       .then((userCredential) => {
         // Signed in
+        setError(null);
         const user = userCredential.user;
         form.reset();
-        navigate('/')
+        if(user.emailVerified) {
+            navigate(from, { replace: true });
+        }
+        else {
+            toast.error('Please Verify Your Email')
+        }
       })
       .catch((error) => {
         const errorMessage = error.message;
-        console.error(errorMessage);
-      });
+        setError(errorMessage);
+      })
+      .finally(()=>{
+        setLoading(false);
+      })
+
   };
   return (
     <div className="w-75 mx-auto">
@@ -43,9 +58,13 @@ const Login = () => {
             placeholder="Password"
           />
         </Form.Group>
-        {/* <Form.Text className="text-danger">
-          We'll never share your email with anyone else.
-        </Form.Text> */}
+
+        {error && (
+          <div className="mb-3">
+            <Form.Text className="text-danger">{error}</Form.Text>
+          </div>
+        )}
+
         <Button className="w-100" variant="dark" type="submit">
           Login
         </Button>

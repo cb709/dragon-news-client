@@ -1,11 +1,23 @@
 import React from "react";
+import { useState } from "react";
 import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUserProfile, verifyEmail } =
+    useContext(AuthContext);
+  const [error, setError] = useState(null);
+  const [accepted, setAccepted] = useState(false);
+  const navigate = useNavigate();
+
+  //for terms and condition
+  const handleAccepted = (event) => {
+    setAccepted(event.target.checked);
+  };
 
   const handleRegister = (event) => {
     event.preventDefault();
@@ -16,18 +28,49 @@ const Register = () => {
     const confirm = form.confirm.value;
     const photoUrl = form.photoUrl.value;
 
-    createUser(email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log('Registered With', user)
-        form.reset();
+    //check password before register
+    if (password === confirm) {
+      setError(null);
+      createUser(email, password)
+        .then((userCredential) => {
+          // Signed in
+          setError(null);
+          const user = userCredential.user;
+          console.log("Registered With", user);
+          form.reset();
+          updateProfile(name, photoUrl);
+          handleVerifyEmail();
+          toast.success('Check Your Email to verify !',{duration: 5000})
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorMessage = error.message;
+          setError(errorMessage);
+        });
+    } else {
+      setError("Password Not Matched");
+    }
+  };
+
+  const updateProfile = (name, photoUrl) => {
+    const profile = { displayName: name, photoURL: photoUrl };
+    updateUserProfile(profile)
+      .then(() => {
+        // Profile updated!
+        // ...
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        console.error(errorMessage)
+        console.error(error);
       });
   };
+
+  const handleVerifyEmail = () => {
+    verifyEmail().then(() => {
+      // Email verification sent!
+      // ...
+    });
+  };
+
   return (
     <div className="w-75 mx-auto">
       <h2 className="text-center mb-3">Register</h2>
@@ -65,11 +108,26 @@ const Register = () => {
           />
         </Form.Group>
 
-        {/* <Form.Text className="text-danger">
-          We'll never share your email with anyone else.
-        </Form.Text> */}
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check
+            type="checkbox"
+            onClick={handleAccepted}
+            label="Terms and Conditions"
+          />
+        </Form.Group>
 
-        <Button className="w-100" variant="dark" type="submit">
+        {error && (
+          <div className="mb-3">
+            <Form.Text className="text-danger">{error}</Form.Text>
+          </div>
+        )}
+
+        <Button
+          className="w-100"
+          variant="dark"
+          type="submit"
+          disabled={!accepted}
+        >
           Register
         </Button>
       </Form>
