@@ -21,6 +21,7 @@ const Register = () => {
         // Signed in
         const user = userCredential.user;
         console.log('Registered With', user)
+        form.reset();
       })
       .catch((error) => {
         const errorMessage = error.message;

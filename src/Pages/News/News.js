@@ -13,7 +13,7 @@ const News = () => {
         <Card.Text>
           {details}
         </Card.Text>
-        <Link className="text-white btn btn-primary" to={`/category/${category_id}`}>All News In this Category</Link>
+        <Link className="btn btn-dark" to={`/category/${category_id}`}>All News In this Category</Link>
       </Card.Body>
     </Card>
   );
